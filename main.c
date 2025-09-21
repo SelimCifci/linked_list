@@ -14,6 +14,7 @@ node_t *iterate(node_t *head, int index) {
 
     while (current != NULL && current_index < index) {
         current = current->link;
+        current_index++;
     }
 
     return current;
