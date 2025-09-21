@@ -35,7 +35,14 @@ void add_node(node_t **head, int index, int data) {
         node_t *new = (node_t *)malloc(sizeof(node_t));
 
         new->data = data;
-        new->link = current;
+        
+        if(previous->link == NULL) {
+            new->link = NULL;
+        }
+        else {
+            new->link = current;
+        }
+
         previous->link = new;
     }
 }
@@ -53,7 +60,7 @@ void pop_node(node_t **head, int index) {
     free(current);
 }
 
-node_t *convert_to_ll(node_t *head, int arr[], int len) {
+node_t *convert(node_t *head, int arr[], int len) {
     head->data = arr[0];
     head->link = NULL;
 
@@ -64,20 +71,26 @@ node_t *convert_to_ll(node_t *head, int arr[], int len) {
     return head;
 }
 
-int main() {
-    int *ptr = (int *)malloc(0 * sizeof(int));
+void print(node_t *head) {
+    node_t *current = head;
 
+    printf("%d\n", *head);
+
+    while (current->link != NULL) {
+        current = current->link;
+        printf("%d\n", *current);
+    }
+}
+
+int main() {
     node_t *head = (node_t *)malloc(sizeof(node_t));
 
     int arr[] = {5,8,4,1,3,2};
     int length = sizeof(arr)/sizeof(arr[0]);
 
-    convert_to_ll(head, arr, length);
+    convert(head, arr, length);
 
-    for(int i = 0; i < 6; i++) {
-        printf("%d\n", iterate(head, i)->data);
-    }
+    print(head);
 
-    free(ptr);
     return 0;
 }
