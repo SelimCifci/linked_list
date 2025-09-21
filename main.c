@@ -1,28 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct node
+typedef struct node
 {
     int data;
     struct node *link;
-};
+} node_t;
 
+node_t *iterate(node_t *head, int index) {
+    node_t *current = head;
+
+    int current_index = 1;
+
+    while (current != NULL && current_index < index) {
+        current = current->link;
+    }
+
+    return current;
+}
 
 int main() {
     int *ptr = (int *)malloc(0 * sizeof(int));
 
-    struct node *head = (struct node *)malloc(sizeof(struct node));
+    node_t *head = (node_t *)malloc(sizeof(node_t));
     head->data = 5;
-    head->link = NULL;
+    head->link = (node_t *)malloc(sizeof(node_t));
+    head->link->data = 8;
+    head->link->link = NULL;
 
-    struct node *current = (struct node *)malloc(sizeof(struct node));
-    current->data = 8;
-    current->link = NULL;
-
-    head->link = current;
-
-    printf("%d\n", head->data);
-    return 0;
+    printf("%d\n", iterate(head, 1)->data);
 
     free(ptr);
+    return 0;
 }
